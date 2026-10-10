@@ -2,29 +2,37 @@ import pandas as pd
 import numpy as np
 
 
+def _clean(d):
+    """Replace NaN with None so Flask returns valid JSON."""
+    return {
+        k: _clean(v) if isinstance(v, dict) else (None if pd.isna(v) else v)
+        for k, v in d.items()
+    }
+
+
 def load_csv(file):
     return pd.read_csv(file)
-    try:
-        df = load_csv(file)
-    except Exception:
-        return jsonify(error="Invalid CSV file"), 400
 
 
 def summary_stats(df):
-    return df.describe().round(3).to_dict()
+    return _clean(df.describe().round(3).to_dict())
+
 
 def missing_values(df):
     return df.isnull().sum().to_dict()
 
+
 def correlation(df):
-    return df.select_dtypes("number").corr().round(3).to_dict()
+    return _clean(df.select_dtypes("number").corr().round(3).to_dict())
+
 
 def column_types(df):
     return {c: str(t) for c, t in df.dtypes.items()}
+
 
 def histogram(df, column, bins=10):
     counts, edges = np.histogram(df[column].dropna(), bins=bins)
     return {
         "counts": counts.tolist(),
-        "edges": [round(float(e), 2) for e in edges]
+        "edges": [round(float(e), 2) for e in edges],
     }
