@@ -51,3 +51,7 @@ async function loadHistogram(col) {
 
 $("colSelect").addEventListener("change", e => loadHistogram(e.target.value));
 
+async function loadCorr() {
+  const data = await (await fetch("/api/correlation")).json();
+  $("corr").innerHTML = nestedTable(data);
+}
