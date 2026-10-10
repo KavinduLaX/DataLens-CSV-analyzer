@@ -8,3 +8,6 @@ def load_csv(file):
 
 def summary_stats(df):
     return df.describe().round(3).to_dict()
+
+def missing_values(df):
+    return df.isnull().sum().to_dict()
