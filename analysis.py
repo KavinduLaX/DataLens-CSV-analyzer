@@ -17,3 +17,10 @@ def correlation(df):
 
 def column_types(df):
     return {c: str(t) for c, t in df.dtypes.items()}
+
+def histogram(df, column, bins=10):
+    counts, edges = np.histogram(df[column].dropna(), bins=bins)
+    return {
+        "counts": counts.tolist(),
+        "edges": [round(float(e), 2) for e in edges]
+    }
