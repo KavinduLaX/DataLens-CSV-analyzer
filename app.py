@@ -47,3 +47,7 @@ def hist(column):
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+@app.errorhandler(KeyError)
+def no_data(e):
+    return jsonify(error="Upload a CSV first"), 400
