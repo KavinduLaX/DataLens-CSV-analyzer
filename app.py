@@ -41,5 +41,9 @@ def missing():
 def corr():
     return jsonify(correlation(DATA["df"]))
 
+@app.route("/api/histogram/<column>")
+def hist(column):
+    return jsonify(histogram(DATA["df"], column))
+
 if __name__ == "__main__":
     app.run(debug=True)
