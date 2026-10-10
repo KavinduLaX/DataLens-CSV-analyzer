@@ -51,3 +51,13 @@ if __name__ == "__main__":
 @app.errorhandler(KeyError)
 def no_data(e):
     return jsonify(error="Upload a CSV first"), 400
+
+@app.route("/api/report")
+def report():
+    df = DATA["df"]
+    return jsonify(
+        summary=summary_stats(df),
+        missing=missing_values(df),
+        types=column_types(df),
+        correlation=correlation(df),
+    )
