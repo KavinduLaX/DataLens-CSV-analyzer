@@ -4,6 +4,10 @@ import numpy as np
 
 def load_csv(file):
     return pd.read_csv(file)
+    try:
+        df = load_csv(file)
+    except Exception:
+        return jsonify(error="Invalid CSV file"), 400
 
 
 def summary_stats(df):

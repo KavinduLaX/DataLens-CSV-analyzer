@@ -1,7 +1,21 @@
-# **DataLens — CSV Data Analysis & Visualization Dashboard**
-
-**Tech Stack:** Python, Flask, Pandas, HTML, CSS, JavaScript, Chart.js.
-
-A web-based data analysis tool that transforms CSV files into meaningful insights with descriptive statistics, missing value detection, histograms, and correlation analysis through interactive visualizations.
-
+# DataLens
 Upload a CSV and get instant data analysis.
+
+## Features
+- Summary statistics
+- Missing value check
+- Histogram chart
+- Correlation matrix
+- JSON report download
+
+## Run
+```
+pip install -r requirements.txt
+python app.py
+```
+Open http://127.0.0.1:5000 and upload `sample_data/iris_small.csv`.
+
+## Tests
+```
+pytest
+```
