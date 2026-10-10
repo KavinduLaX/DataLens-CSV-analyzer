@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, render_template
+from flask import Flask, jsonify, request, render_template, Response
 from analysis import *
 
 app = Flask(__name__)
@@ -63,6 +63,14 @@ def report():
         correlation=correlation(df),
     )
 
+@app.route("/api/report.txt")
+def report_txt():
+    text = text_report(DATA["df"])
+    return Response(
+        text,
+        mimetype="text/plain",
+        headers={"Content-Disposition": "attachment; filename=datalens_report.txt"},
+    )   
 
 @app.errorhandler(KeyError)
 def no_data(e):

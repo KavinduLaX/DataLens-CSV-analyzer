@@ -36,3 +36,30 @@ def histogram(df, column, bins=10):
         "counts": counts.tolist(),
         "edges": [round(float(e), 2) for e in edges],
     }
+
+def text_report(df):
+    types = pd.DataFrame({
+        "type": df.dtypes.astype(str),
+        "missing": df.isnull().sum(),
+    })
+    line = "=" * 70
+    parts = [
+        line,
+        "DATALENS REPORT",
+        line,
+        f"Rows: {len(df)}    Columns: {len(df.columns)}",
+        "",
+        "COLUMN TYPES AND MISSING VALUES",
+        "-" * 70,
+        types.to_string(),
+        "",
+        "SUMMARY STATISTICS",
+        "-" * 70,
+        df.describe().round(3).to_string(),
+        "",
+        "CORRELATION MATRIX",
+        "-" * 70,
+        df.select_dtypes("number").corr().round(3).to_string(),
+        "",
+    ]
+    return "\n".join(parts)

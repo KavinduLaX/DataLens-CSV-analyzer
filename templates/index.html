@@ -2,22 +2,67 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>DataLens</title>
-  <link rel="stylesheet" href="/static/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css?v=3">
 </head>
 <body>
-  <h1>DataLens</h1>
-  <p>Upload a CSV and explore it instantly.</p>
-  <input type="file" id="file" accept=".csv">
-  <button id="uploadBtn">Analyze</button>
-  <p id="status"></p>
-  <a href="/api/report" download="report.json">Download report</a>
-  <h2>Summary</h2><div id="summary"></div>
-  <h2>Missing values</h2><div id="missing"></div>
-  <h2>Histogram</h2>
-  <select id="colSelect"></select>
-  <canvas id="chart" height="120"></canvas>
-  <h2>Correlation</h2><div id="corr"></div>
+  <div class="bg">
+    <span class="blob b1"></span>
+    <span class="blob b2"></span>
+    <span class="blob b3"></span>
+    <div class="grid"></div>
+  </div>
+
+  <main>
+    <header class="hero">
+      <button id="themeBtn" title="Toggle theme">🌙</button>
+      <div class="badge"><i></i> Data Science Toolkit</div>
+      <h1>Data<span>Lens</span></h1>
+      <p class="tagline">Drop a CSV. Get instant insight.</p>
+    </header>
+
+    <section class="card upload">
+      <label class="dropzone" id="drop" for="file">
+        <div class="drop-icon">⬆</div>
+        <strong id="dropText">Drag &amp; drop your CSV here</strong>
+        <span>or click to browse</span>
+        <input type="file" id="file" accept=".csv" hidden>
+      </label>
+      <button id="uploadBtn" class="btn primary"><span>Analyze Data</span></button>
+      <p id="status"></p>
+    </section>
+
+    <section id="results" class="hidden">
+      <div class="stats">
+        <div class="stat"><small>Rows</small><b id="sRows" data-v="0">0</b></div>
+        <div class="stat"><small>Columns</small><b id="sCols" data-v="0">0</b></div>
+        <div class="stat"><small>Numeric</small><b id="sNum" data-v="0">0</b></div>
+        <div class="stat"><small>Missing</small><b id="sMiss" data-v="0">0</b></div>
+      </div>
+
+      <div class="card"><h2>Summary Statistics</h2><div class="scroll" id="summary"></div></div>
+      <div class="card"><h2>Missing Values</h2><div class="scroll" id="missing"></div></div>
+      <div class="card">
+        <div class="row">
+          <h2>Histogram</h2>
+          <select id="colSelect"></select>
+        </div>
+        <canvas id="chart" height="120"></canvas>
+      </div>
+      <div class="card"><h2>Correlation Heatmap</h2><div class="scroll" id="corr"></div></div>
+
+      <div class="download-wrap">
+        <a class="btn glow" href="/api/report.txt"><span>⬇ Download Report</span></a>
+      </div>
+    </section>
+
+    <footer>Built with Flask · pandas · Chart.js</footer>
+  </main>
+
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1"></script>
   <script src="/static/app.js"></script>
 </body>
