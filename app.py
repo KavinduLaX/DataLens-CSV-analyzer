@@ -32,5 +32,14 @@ def summary():
 def types():
     return jsonify(column_types(DATA["df"]))
 
+@app.route("/api/missing")
+def missing():
+    return jsonify(missing_values(DATA["df"]))
+
+
+@app.route("/api/correlation")
+def corr():
+    return jsonify(correlation(DATA["df"]))
+
 if __name__ == "__main__":
     app.run(debug=True)
