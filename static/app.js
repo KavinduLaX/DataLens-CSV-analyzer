@@ -7,7 +7,14 @@ $("uploadBtn").addEventListener("click", async () => {
   form.append("file", file);
   const res = await fetch("/api/upload", { method: "POST", body: form });
   const data = await res.json();
+  if (!res.ok) {
+    $("status").textContent = data.error;
+    return;
+  }
   $("status").textContent = `Loaded ${data.rows} rows, ${data.columns.length} columns`;
+  loadSummary();
+  loadMissing();
+  loadCorr();
 });
 
 function nestedTable(obj) {
@@ -35,7 +42,6 @@ async function loadMissing() {
     Object.entries(data).map(([k, v]) => `<tr><th>${k}</th><td>${v}</td></tr>`).join("") +
     "</table>";
 }
-
 
 let chart;
 
