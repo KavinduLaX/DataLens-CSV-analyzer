@@ -4,3 +4,7 @@ import numpy as np
 
 def load_csv(file):
     return pd.read_csv(file)
+
+
+def summary_stats(df):
+    return df.describe().round(3).to_dict()
