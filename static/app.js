@@ -32,3 +32,10 @@ async function loadMissing() {
     Object.entries(data).map(([k, v]) => `<tr><th>${k}</th><td>${v}</td></tr>`).join("") +
     "</table>";
 }
+
+async function loadMissing() {
+  const data = await (await fetch("/api/missing")).json();
+  $("missing").innerHTML = "<table>" +
+    Object.entries(data).map(([k, v]) => `<tr><th>${k}</th><td>${v}</td></tr>`).join("") +
+    "</table>";
+}
