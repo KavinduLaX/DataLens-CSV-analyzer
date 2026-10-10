@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from analysis import *
 
 app = Flask(__name__)
@@ -7,7 +7,7 @@ DATA = {}
 
 @app.route("/")
 def home():
-    return "DataLens running"
+    return render_template("index.html")
 
 
 @app.route("/health")
