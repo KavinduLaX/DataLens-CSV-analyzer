@@ -24,6 +24,9 @@ function nestedTable(obj) {
 async function loadSummary() {
   const data = await (await fetch("/api/summary")).json();
   $("summary").innerHTML = nestedTable(data);
+  const cols = Object.keys(data);
+  $("colSelect").innerHTML = cols.map(c => `<option>${c}</option>`).join("");
+  if (cols.length) loadHistogram(cols[0]);
 }
 
 async function loadMissing() {
@@ -33,9 +36,18 @@ async function loadMissing() {
     "</table>";
 }
 
-async function loadMissing() {
-  const data = await (await fetch("/api/missing")).json();
-  $("missing").innerHTML = "<table>" +
-    Object.entries(data).map(([k, v]) => `<tr><th>${k}</th><td>${v}</td></tr>`).join("") +
-    "</table>";
+
+let chart;
+
+async function loadHistogram(col) {
+  const d = await (await fetch("/api/histogram/" + encodeURIComponent(col))).json();
+  const labels = d.counts.map((_, i) => `${d.edges[i]} to ${d.edges[i + 1]}`);
+  if (chart) chart.destroy();
+  chart = new Chart($("chart"), {
+    type: "bar",
+    data: { labels, datasets: [{ label: col, data: d.counts, backgroundColor: "#2b5797" }] }
+  });
 }
+
+$("colSelect").addEventListener("change", e => loadHistogram(e.target.value));
+
