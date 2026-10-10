@@ -1,0 +1,6 @@
+body { font-family: Arial, sans-serif; max-width: 900px; margin: 30px auto; padding: 0 15px; background: #f5f7fa; }
+h1 { color: #2b5797; }
+button { background: #2b5797; color: white; border: 0; padding: 8px 16px; border-radius: 6px; cursor: pointer; }
+table { border-collapse: collapse; background: white; margin-bottom: 15px; }
+th, td { border: 1px solid #ddd; padding: 6px 10px; text-align: right; }
+th { background: #eaf0f9; }

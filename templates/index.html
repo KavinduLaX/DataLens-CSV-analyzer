@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DataLens</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <h1>DataLens</h1>
+  <p>Upload a CSV and explore it instantly.</p>
+  <input type="file" id="file" accept=".csv">
+  <button id="uploadBtn">Analyze</button>
+  <p id="status"></p>
+  <h2>Summary</h2><div id="summary"></div>
+  <h2>Missing values</h2><div id="missing"></div>
+  <h2>Histogram</h2>
+  <select id="colSelect"></select>
+  <canvas id="chart" height="120"></canvas>
+  <h2>Correlation</h2><div id="corr"></div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1"></script>
+  <script src="/static/app.js"></script>
+</body>
+</html>
