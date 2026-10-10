@@ -23,5 +23,14 @@ def upload():
     DATA["df"] = df
     return jsonify(rows=len(df), columns=list(df.columns))
 
+@app.route("/api/summary")
+def summary():
+    return jsonify(summary_stats(DATA["df"]))
+
+
+@app.route("/api/types")
+def types():
+    return jsonify(column_types(DATA["df"]))
+
 if __name__ == "__main__":
     app.run(debug=True)
