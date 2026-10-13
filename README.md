@@ -8,7 +8,7 @@ Upload a CSV and get instant data analysis.
 - Correlation matrix
 - JSON report download
 
-## Run
+## Run method
 ```
 pip install -r requirements.txt
 python app.py
